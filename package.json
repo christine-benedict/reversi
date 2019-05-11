@@ -1,0 +1,26 @@
+{
+  "name": "reversi",
+  "version": "1.0.0",
+  "description": "Reversi game for MHCID interactive design course",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christine-benedict/reversi.git"
+  },
+  "keywords": [
+    "reversi"
+  ],
+  "author": "Christine Benedict",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/christine-benedict/reversi/issues"
+  },
+  "homepage": "https://github.com/christine-benedict/reversi#readme",
+  "dependencies": {
+    "node-static": "^0.7.11",
+    "socket.io": "^2.2.0"
+  }
+}
