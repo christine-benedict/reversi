@@ -27,6 +27,35 @@ button.small {
 	font-size: 1rem;
 }
 
+form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+input[type=text] {
+	background-color: transparent;
+	border: solid 2px white;
+	border-radius: 1rem;
+	color: white;
+	font-family: 'Permanent Marker';
+	padding: .25rem .75rem;
+	font-size: 1rem;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+}
+
+input[type=submit] {
+	background-color: transparent;
+	border: solid 2px white;
+	border-radius: 1rem;
+	color: white;
+	font-family: 'Permanent Marker';
+	padding: .25rem .75rem;
+	font-size: 1rem;
+	margin-bottom: 1rem;
+}
+
 .main-content-wrapper {
 	display: flex; 
 	flex-wrap: wrap;
@@ -44,8 +73,31 @@ button.small {
 	margin-top:2rem;
 }
 
+.subheader {
+	color: white;
+	font-family: 'Luckiest Guy';
+	text-decoration: underline;
+}
+
+.name {
+	display: flex;
+	justify-content: center;
+	width:100%;
+	color: white;
+	font-family: 'Permanent Marker';
+}
+
+#messages {
+	display: flex;
+	flex-wrap: wrap;
+	width:100%;
+	text-align: center;
+	justify-content: center;
+}
+
 .entrance-content{
 	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
 	justify-content: center;
 	margin-top: 2rem;
