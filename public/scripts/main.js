@@ -18,3 +18,11 @@ if('undefied' == typeof username || !username){
 }
 
 $('#messages').append('<h4 class="name">'+username+'</h4>');
+
+// Connect to socket server
+
+var socket = io.connect();
+
+cocket.on('log', function(array){
+	console.log.apply(console.array);
+});
