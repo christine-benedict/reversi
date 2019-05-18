@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Permanent+Marker&display=swap');
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 body { 
 	background: -webkit-linear-gradient(left, #FFA582 0%, #b35a37 100%);
 	background: -o-linear-gradient(left, #FFA582 0%, #b35a37 100%);
