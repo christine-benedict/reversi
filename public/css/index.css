@@ -7,6 +7,10 @@ body {
 	height: 100vh;
 }
 
+p {
+	color:white;
+}
+
 button {
 	background-color: transparent;
 	border: solid 2px white;

@@ -17,12 +17,29 @@ if('undefied' == typeof username || !username){
 	username = "Wookie"+Math.floor(Math.random()*10000);
 }
 
-$('#messages').append('<h4 class="name">'+username+'</h4>');
+var chatRoom = 'Lobby Chat';
 
 // Connect to socket server
 
 var socket = io.connect();
 
-cocket.on('log', function(array){
-	console.log.apply(console.array);
+socket.on('log', function(array){
+	console.log.apply(console, array);
+});
+
+socket.on('join_room_response', function(payload){
+	if(payload.result == 'fail'){
+		alert(payload.message);
+		return;
+	}
+	$('#messages').append('<p>New user joined the room: '+payload.username+'</p>');
+});
+
+$(function(){
+	var payload = {};
+	payload.room = chatRoom;
+	payload.username = username;
+
+	console.log('*** Client Log Message: \' join_room\' payload: '+JSON.stringify(payload));
+	socket.emit('join_room', payload);
 });
