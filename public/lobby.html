@@ -20,6 +20,13 @@
         <div id="messages">
         </div>
       </div>
+      <div class='main-content-wrapper'>
+        <form onSubmit='sendMessage(); reset(); return false;'>
+          <label for="send_message_holder" class="sr-only">Enter message: </label>
+          <input id="send_message_holder" type="text" value=''placeholder="Enter message"/>
+          <button class="submit" type="submit">Send</button>
+        </form>
+      </div>
       <div class='entrance-content'>
         <a href='./index.html'><button class='small'>Go Back</button></a>
       </div>
