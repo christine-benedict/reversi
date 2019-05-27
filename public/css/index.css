@@ -135,6 +135,7 @@ input::placeholder {
 
 #players {
 	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
 }
 
