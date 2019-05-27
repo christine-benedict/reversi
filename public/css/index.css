@@ -120,6 +120,7 @@ input::placeholder {
 	display: flex;
 	flex-wrap: wrap;
 	width: 50%;
+	align-content: flex-start;
 }
 
 #messages {
