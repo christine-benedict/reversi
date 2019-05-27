@@ -71,11 +71,6 @@ input::placeholder {
 	color: #B35A3D;
 }
 
-#players {
-	display: flex;
-	width: 100%;
-}
-
 .main-content-wrapper {
 	display: flex; 
 	flex-wrap: wrap;
@@ -94,11 +89,13 @@ input::placeholder {
 }
 
 .subheader {
+	display: flex;
 	color: white;
 	font-family: 'Luckiest Guy';
 	text-decoration: underline;
 	width: 100%;
 	text-align: center;
+	justify-content: center;
 }
 
 .name {
@@ -109,6 +106,20 @@ input::placeholder {
 	color: white;
 	font-family: 'Permanent Marker';
 	margin-right: 1rem;
+}
+
+.entrance-content{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.two-column {
+	display: flex;
+	flex-wrap: wrap;
+	width: 50%;
 }
 
 #messages {
@@ -122,12 +133,9 @@ input::placeholder {
 	padding: 0 .5rem;
 }
 
-.entrance-content{
+#players {
 	display: flex;
-	flex-wrap: wrap;
 	width: 100%;
-	justify-content: center;
-	margin-top: 2rem;
 }
 
 .animate-left{

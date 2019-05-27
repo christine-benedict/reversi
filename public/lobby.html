@@ -16,19 +16,24 @@
     <h1 class='header-wrapper'>Choose your opponent</h1>
     <div class='main-content-wrapper'>
       <div class='entrance-content'>
-        <h3 class="subheader">Players</h3>
-        <div id='players'>
+                <div class='two-column'>
+          <h3 class="subheader">Messages</h3>
+          <div id="messages">
+          </div>
+          <div class='main-content-wrapper'>
+            <form onSubmit='sendMessage(); reset(); return false;' autocomplete="off">
+              <label for="send_message_holder" class="sr-only">Enter message: </label>
+              <input id="send_message_holder" type="text" value=''placeholder="Enter message"/>
+              <button class="submit" type="submit">Send</button>
+            </form>
+          </div>
         </div>
-        <h3 class="subheader">Messages</h3>
-        <div id="messages">
+        <div class='two-column'>
+          <h3 class="subheader">Players</h3>
+          <div id='players'>
+          </div>
         </div>
-      </div>
-      <div class='main-content-wrapper'>
-        <form onSubmit='sendMessage(); reset(); return false;' autocomplete="off">
-          <label for="send_message_holder" class="sr-only">Enter message: </label>
-          <input id="send_message_holder" type="text" value=''placeholder="Enter message"/>
-          <button class="submit" type="submit">Send</button>
-        </form>
+
       </div>
       <div class='entrance-content'>
         <a href='./index.html'><button class='small'>Start Over</button></a>
