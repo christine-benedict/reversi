@@ -46,7 +46,7 @@ socket.on('join_room_response', function(payload){
 		var nodeC = $('<div></div>');
 		nodeC.addClass('socket_'+payload.socket_id);
 
-		nodeA.addClass('w-50');
+		nodeA.addClass('');
 		nodeB.addClass('');
 		nodeB.append('<h4 class=\'name\'>'+payload.username+'</h4>');
 		nodeC.addClass('');
