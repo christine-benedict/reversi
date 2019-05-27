@@ -100,12 +100,13 @@ input::placeholder {
 
 .name {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-content: center;
 	width:100%;
 	color: white;
 	font-family: 'Permanent Marker';
-	margin-right: 1rem;
+	padding-right: 1rem;
+	padding-bottom: .75rem;
 }
 
 .entrance-content{
@@ -120,7 +121,9 @@ input::placeholder {
 	display: flex;
 	flex-wrap: wrap;
 	width: 50%;
+	justify-content: center;
 	align-content: flex-start;
+	margin-bottom: 2rem;
 }
 
 #messages {
@@ -132,13 +135,23 @@ input::placeholder {
 	justify-content: center;
 	margin: 0 1rem 5%;
 	padding: 0 .5rem;
+	max-height: 50vh;
+	overflow-y: scroll;
 }
 
 #players {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	justify-content: space-around;
+	justify-content: center;
+}
+
+#chat-form {
+	width:100%;
+}
+
+#send_message_holder {
+	width:75%;
 }
 
 .animate-left{
@@ -177,4 +190,15 @@ input::placeholder {
 	width: 30%;
 	justify-content: space-around;
 	margin-top:2rem;
+}
+
+@media (max-width:800px) {
+	.two-column{
+		flex-direction: column;
+		width: 100%;		
+	}
+
+	#messages {
+		width:95%;
+	}
 }

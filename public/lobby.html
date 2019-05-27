@@ -21,7 +21,7 @@
           <div id="messages">
           </div>
           <div class='main-content-wrapper'>
-            <form onSubmit='sendMessage(); reset(); return false;' autocomplete="off">
+            <form id="chat-form" onSubmit='sendMessage(); reset(); return false;' autocomplete="off">
               <label for="send_message_holder" class="sr-only">Enter message: </label>
               <input id="send_message_holder" type="text" value=''placeholder="Enter message"/>
               <button class="submit" type="submit">Send</button>

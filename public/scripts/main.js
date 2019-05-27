@@ -45,11 +45,12 @@ socket.on('join_room_response', function(payload){
 		nodeB.addClass('socket_'+payload.socket_id);
 		var nodeC = $('<div></div>');
 		nodeC.addClass('socket_'+payload.socket_id);
-
-		nodeA.addClass('');
-		nodeB.addClass('');
+		
+		nodeA.addClass('w-100')
+		nodeA.append(nodeB, nodeC);
+		nodeB.addClass('w-50');
 		nodeB.append('<h4 class=\'name\'>'+payload.username+'</h4>');
-		nodeC.addClass('');
+		nodeC.addClass('w-50');
 
 		var buttonC = makeInviteButton();
 		nodeC.append(buttonC);
