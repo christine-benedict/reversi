@@ -1,0 +1,41 @@
+* { box-sizing: border-box; }
+
+.full-width {
+	width: 100%
+}
+
+#board {
+	display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border: 1px solid black;
+    background-color: black;
+    grid-gap: 1px;
+}
+
+#scores {
+	margin-bottom: 2rem;
+}
+
+.square {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: lightblue;
+	height: 5.5rem;
+	width: 5.5rem;
+}
+
+.hovered_over:hover {
+	background-color: orange;
+	background-size: 100% 100%;
+}
+
+#message-column {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#board-column {
+	display: flex;
+	flex-wrap: wrap;
+}
