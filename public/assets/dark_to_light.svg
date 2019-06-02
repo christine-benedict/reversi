@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+	<defs>
+		<clipPath id="a">
+			<path id="shadow1cp" d="M45.38,57.31,42,58.84A28.09,28.09,0,0,0,58.44,32.56,28.8,28.8,0,0,0,29.72,4.28a27.56,27.56,0,0,0-11.1,2.41L22,5.16a27.6,27.6,0,0,1,11.1-2.41A28.79,28.79,0,0,1,61.85,31,28.08,28.08,0,0,1,45.38,57.31Z" style="fill:none"/>
+		</clipPath>
+		<clipPath id="b">
+			<path d="M12.64,54.7l.18-.08.19-.08.2-.09.2-.09.2-.09.2-.09.19-.09.18-.08.22-.1.23-.1.24-.11.24-.11.25-.11.24-.11.23-.1.22-.1a28.19,28.19,0,0,0,18.24,6.55,27.56,27.56,0,0,0,11.1-2.41L42,58.84a27.56,27.56,0,0,1-11.1,2.41A28.21,28.21,0,0,1,12.64,54.7Z" style="fill:none"/>
+		</clipPath>
+		<clipPath id="c">
+			<path d="M2.15,33A28.1,28.1,0,0,1,18.62,6.69L22,5.16A28.09,28.09,0,0,0,5.56,31.45,28.92,28.92,0,0,0,16.05,53.17L12.64,54.7A29,29,0,0,1,2.15,33Z" style="fill:none"/>
+		</clipPath>
+		<clipPath id="d">
+			<path d="M45.79,58.22l-3.41,1.53a28.32,28.32,0,0,1-11.48,2.5A29.81,29.81,0,0,1,1.17,33a29.07,29.07,0,0,1,17-27.21l3.41-1.53a29.08,29.08,0,0,0-17,27.21A29.81,29.81,0,0,0,34.31,60.72,28.56,28.56,0,0,0,45.79,58.22Z" style="fill:none"/>
+		</clipPath>
+	</defs>
+	<g style="isolation:isolate">
+		<g style="isolation:isolate">
+			<g style="clip-path:url(#a)">
+				<g style="isolation:isolate">
+					<path id="shadow1" d="M45.38,57.31,42,58.84A28.09,28.09,0,0,0,58.44,32.56,28.8,28.8,0,0,0,29.72,4.28a27.56,27.56,0,0,0-11.1,2.41L22,5.16a27.6,27.6,0,0,1,11.1-2.41A28.79,28.79,0,0,1,61.85,31,28.08,28.08,0,0,1,45.38,57.31" style="fill:#004a40"/>
+				</g>
+			</g>
+		</g>
+		<g style="isolation:isolate">
+			<g style="clip-path:url(#b)">
+				<g style="isolation:isolate">
+					<path id="shadow2" d="M45.38,57.31,42,58.84a27.56,27.56,0,0,1-11.1,2.41A28.8,28.8,0,0,1,2.15,33,28.1,28.1,0,0,1,18.62,6.69L22,5.16A28.09,28.09,0,0,0,5.56,31.45,28.79,28.79,0,0,0,34.29,59.72a27.48,27.48,0,0,0,11.09-2.41" style="fill:#004a40"/>
+				</g>
+			</g>
+		</g>
+		<g style="isolation:isolate">
+			<g style="clip-path:url(#c)">
+				<g style="isolation:isolate">
+					<path id="shadow3" d="M45.38,57.31,42,58.84a27.56,27.56,0,0,1-11.1,2.41A28.8,28.8,0,0,1,2.15,33,28.1,28.1,0,0,1,18.62,6.69L22,5.16A28.09,28.09,0,0,0,5.56,31.45,28.79,28.79,0,0,0,34.29,59.72a27.48,27.48,0,0,0,11.09-2.41" style="fill:#004a40"/>
+				</g>
+			</g>
+		</g>
+		<path id='tokenOutline' d="M33.1,1.75A29.81,29.81,0,0,1,62.83,31a28.89,28.89,0,0,1-28.52,29.7A29.81,29.81,0,0,1,4.57,31.46,28.9,28.9,0,0,1,33.1,1.75Zm1.19,58A27.91,27.91,0,0,0,61.85,31,28.79,28.79,0,0,0,33.12,2.75,27.9,27.9,0,0,0,5.56,31.45,28.79,28.79,0,0,0,34.29,59.72" style="fill:#25B39B"/>
+		<path id='tokenCenter' d="M33.12,2.75A28.79,28.79,0,0,1,61.85,31,27.91,27.91,0,0,1,34.29,59.72,28.79,28.79,0,0,1,5.56,31.45,27.9,27.9,0,0,1,33.12,2.75Z" style="fill:#25B39B"/>
+		<g style="isolation:isolate">
+			<g style="clip-path:url(#d)">
+				<g style="isolation:isolate">
+					<path id="shadow4" d="M45.79,58.22l-3.41,1.53a28.32,28.32,0,0,1-11.48,2.5A29.81,29.81,0,0,1,1.17,33a29.07,29.07,0,0,1,17-27.21l3.41-1.53a29.08,29.08,0,0,0-17,27.21A29.81,29.81,0,0,0,34.31,60.72a28.56,28.56,0,0,0,11.48-2.5" style="fill:#004a40"/>
+				</g>
+			</g>
+		</g>
+	</g>
+
+	<animate xlink:href="#tokenOutline" attributeName="fill" from="#25B39B" to="#69FFE6" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#tokenCenter" attributeName="fill" from="#25B39B" to="#69FFE6" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#shadow1" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#shadow2" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#shadow3" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#shadow4" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
+
+</svg>

@@ -14,6 +14,13 @@
 
 #scores {
 	margin-bottom: 2rem;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.color-score {
+	padding: 0 4rem;
 }
 
 .square {
@@ -33,9 +40,95 @@
 #message-column {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
+	align-content: flex-start;
 }
 
 #board-column {
 	display: flex;
 	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+
+.fade-in {
+	animation: fadeUp 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+@keyframes fadeUp {
+	 0% {
+	 	opacity: 0;
+	 }
+	 100% {
+	 	opacity: 1;
+	 }
+}
+
+.fade-out {
+	animation: fadeDown 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+@keyframes fadeDown {
+	 0% {
+	 	opacity: 1;
+	 }
+	 100% {
+	 	opacity: 0;
+	 }
+}
+
+.dark-to-light{
+	animation: flip 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+.light-to-dark{
+	animation: flip 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+.light-to-dark.token {
+	animation: light-dark 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+.dark-to-light.token {
+	animation: darklight 2s ease-in-out;
+	animation-iteration-count: 1;
+}
+
+@keyframes flip {
+	 0% {
+	 	opacity: 0;
+	    transform: rotateY(0deg) rotateZ(0deg);
+	 }
+	 100% {
+	 	opacity: 1;
+	    transform: rotateY(180deg) rotateZ(-130deg);
+	 }
+}
+
+@keyframes light-dark {
+	0% {
+	 	fill: #69FFE6;
+	}
+	50% {
+	 	fill: #25B39B;
+	}
+	100% {
+	 	fill: #25B39B;
+	}
+}
+
+@keyframes dark-light {
+	0% {
+	 	fill: #25B39B;
+	}
+	50% {
+	 	fill: #69FFE6;
+	}
+	100% {
+	 	fill: #69FFE6;
+	}
 }

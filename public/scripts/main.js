@@ -71,7 +71,7 @@ socket.on('join_room_response', function(payload){
 		dom_elements.slideDown(1000);
 	}
 
-	var newHTML = '<p>'+payload.username+' has entered the lobby</p>';
+	var newHTML = '<p>'+payload.username+' has entered the room</p>';
 	var newNode = $(newHTML);
 	newNode.hide();
 	$('#messages').append(newNode);
@@ -93,7 +93,7 @@ socket.on('player_disconnected', function(payload){
 		dom_elements.slideUp(1000);
 	}
 
-	var newHTML = '<p>'+payload.username+' has left the lobby</p>';
+	var newHTML = '<p>'+payload.username+' has left the room</p>';
 	var newNode = $(newHTML);
 	newNode.hide();
 	$('#messages').append(newNode);
@@ -244,6 +244,10 @@ $(function(){
 
 	console.log('*** Client Log Message: \' join_room\' payload: '+JSON.stringify(payload));
 	socket.emit('join_room', payload);
+
+	$('#quit').append('<a href="lobby.html?username='+username+'"><button class="small" aria-pressed="true">Quit</button></a>');		
+
+
 });
 
 var old_board = [
@@ -259,6 +263,7 @@ var old_board = [
 ];
 
 var my_color = ' ';
+var interval_timer;
 
 socket.on('game_update', function(payload){
 	console.log('*** Client Log Message: \' game_update\' \n\t payload: '+JSON.stringify(payload));
@@ -286,31 +291,60 @@ socket.on('game_update', function(payload){
 	}
 
 	$('#my_color').html('<h3 id="my_color">I am '+my_color+'</h3>');
-	
+	$('#my_color').append('<h4>It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
+
+	clearInterval(interval_timer);
+	interval_timer = setInterval(function(last_time){
+	  	return function(){
+		    //Do the work of updating the UI
+		    var d = new Date();
+		    var elapsedmilli = d.getTime() - last_time;
+		    var minutes = Math.floor(elapsedmilli / (60 * 1000));
+		    var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
+
+		    if(seconds < 10){
+		    	$('#elapsed').html(minutes+':0'+seconds);
+		    } else{
+		    	$('#elapsed').html(minutes+':'+seconds);
+		    }
+		}}(payload.game.last_move_time), 1000);
+
+
 	$('.drawn').ready(function(){
+
+		var darksum = 0;
+		var lightsum = 0;
 
 		var row, column;
 		for(row = 0; row < 8; row++){
 			for( column = 0; column < 8; column ++){
+				if(board[row][column] == 'b'){
+					darksum++
+				}
+				if(board[row][column] == 'w'){
+					lightsum++
+				}
+				
+
 				if(old_board[row][column] != board[row][column]){
 					if(old_board[row][column] == '?' && board[row][column] == ' '){
 						$(`#${row}_${column}`).html('<div alt="empty square"/>');
 					} else if(old_board[row][column] == '?' && board[row][column] == 'w'){
-						$(`#${row}_${column}`).html('<img src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem alt="light square"/>');
 					} else if(old_board[row][column] == '?' && board[row][column] == 'b'){
-						$(`#${row}_${column}`).html('<img src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem alt="dark square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-						$(`#${row}_${column}`).html('<img src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" alt="light square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
-						$(`#${row}_${column}`).html('<img src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == 'w' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img src="assets/images/light_to_empty.gif" alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" alt="empty square"/>');
 					} else if(old_board[row][column] == 'b' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img src="assets/images/dark_to_empty.gif" alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" alt="empty square"/>');
 					} else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
-						$(`#${row}_${column}`).html('<img src="assets/images/light_to_dark.gif" alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
-						$(`#${row}_${column}`).html('<img src="assets/images/dark_to_light.gif" alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
 					} else {
 						$(`#${row}_${column}`).html('<img src="assets/images/error.gif" alt="error"/>');
 					}
@@ -334,6 +368,9 @@ socket.on('game_update', function(payload){
 				}
 			}
 		}
+		$('#darksum').html(darksum);
+		$('#lightsum').html(lightsum);
+
 		old_board = board;
 	});
 
@@ -344,6 +381,17 @@ socket.on('game_update', function(payload){
 			alert(payload.message);
 			return;
 		}
+	});
+
+	socket.on('game_over', function(payload){
+		console.log('*** Client Log Message: \' game_over\' \n\t payload: '+JSON.stringify(payload));
+		if(payload.result == 'fail'){
+			console.log(payload.message)
+			return;
+		}
+
+		$('#game_over').html('<h1>Game Over</h1><h2>'+payload.who_won+' won!</h2>');
+		$('#game_over').append('<a href="lobby.html?username='+username+'"><button class="large" aria-pressed="true">Return to the lobby</button></a>');		
 	});
 });
 
