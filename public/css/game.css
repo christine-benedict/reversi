@@ -33,8 +33,9 @@
 }
 
 .hovered_over:hover {
-	background-color: orange;
+	background: url('../assets/hover.svg'), white;
 	background-size: 100% 100%;
+	opacity: .75;
 }
 
 #message-column {
@@ -131,4 +132,8 @@
 	100% {
 	 	fill: #69FFE6;
 	}
+}
+
+.hover {
+	opacity: .25;
 }

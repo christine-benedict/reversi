@@ -334,19 +334,19 @@ socket.on('game_update', function(payload){
 					} else if(old_board[row][column] == '?' && board[row][column] == 'b'){
 						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem alt="dark square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="dark square"/>');
 					} else if(old_board[row][column] == 'w' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="empty square"/>');
 					} else if(old_board[row][column] == 'b' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="empty square"/>');
 					} else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
 						$(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
 						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
 					} else {
-						$(`#${row}_${column}`).html('<img src="assets/images/error.gif" alt="error"/>');
+						$(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
 					}
 
 					$(`#${row}_${column}`).off('click');
