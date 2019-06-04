@@ -1,20 +1,145 @@
-/* Code for the board specifically */
-$('.drawn').ready(function(){
+/* This code is a collab between Serena Epstein and Christine Benedict */
 
-  var old_board = [
-                    [' ',' ',' ',' ',' ',' ',' ',' '],
-                    [' ',' ',' ',' ',' ',' ',' ',' '],
-                    [' ',' ',' ',' ',' ',' ',' ',' '],
-                    [' ',' ',' ','l','d',' ',' ',' '],
-                    [' ',' ',' ','d','l',' ',' ',' '],
-                    [' ',' ',' ',' ',' ',' ',' ',' '],
-                    [' ',' ',' ',' ',' ',' ',' ',' '],
-                    [' ',' ',' ',' ',' ',' ',' ',' ']
-                  ];
+/* Check if there is a color 'who' on the line starting at (r,c) or
+ * anywhere further by adding dr and dc to (r,c) */
+var old_board = [
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ','l','d',' ',' ',' '],
+                  [' ',' ',' ','d','l',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' ']
+                ];
 
-  var my_color = 'dark';
-  var interval_timer;
-  var d = new Date();
+var my_color = 'dark';
+var interval_timer;
+var d = new Date();
+
+function check_line_match(who, dr, dc, r, c, board){
+  if(board[r][c] === who){
+    return true;
+  }
+  if(board[r][c] === ' '){
+    return false;
+  }
+
+  if( (r+dr < 0) || (r+dr > 7) ){
+    return false;
+  }
+  if( (c+dc < 0) || (c+dc > 7) ){
+    return false;
+  }
+  return check_line_match(who, dr, dc, r+dr, c+dc, board);
+}
+
+
+/* Check if the position at r,c contains the opposite of who on the board
+ * and if the line indicated by adding dr to r and dc to c eventually sends
+ * in the who color */
+
+function valid_move(who,dr,dc,r,c,board){
+  var other;
+  if(who === 'd'){
+    other = 'l';
+  }
+  else if(who === 'l'){
+    other = 'd';
+  }
+  else{
+    log('Houston, we have a color problem: '+who);
+    return false;
+  }
+  if( (r+dr < 0) || (r+dr > 7) ){
+    return false;
+  }
+  if( (c+dc < 0) || (c+dc > 7) ){
+    return false;
+  }
+  if(board[r+dr][c+dc] != other){
+    return false;
+  }
+  if( (r+dr+dr < 0) || (r+dr+dr > 7) ){
+    return false;
+  }
+  if( (c+dc+dc < 0) || (c+dc+dc > 7) ){
+    return false;
+  }
+  return check_line_match(who, dr, dc, r+dr+dr, c+dc+dc, board);
+}
+
+function calculate_valid_moves(who, board){
+  var valid = [
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' '],
+                  [' ',' ',' ',' ',' ',' ',' ',' ']
+                ];
+  for(var row = 0; row < 8; row++){
+    for(var column = 0; column < 8; column++){
+      if(board[row][column] === ' '){
+        nw = valid_move(who,-1,-1,row,column,board);
+        nn = valid_move(who,-1, 0,row,column,board);
+        ne = valid_move(who,-1, 1,row,column,board);
+
+        ww = valid_move(who, 0,-1,row,column,board);
+        ee = valid_move(who, 0, 1,row,column,board);
+
+        sw = valid_move(who, 1,-1,row,column,board);
+        ss = valid_move(who, 1, 0,row,column,board);
+        se = valid_move(who, 1, 1,row,column,board);
+
+        if(nw || nn || ne || ww || ee || sw || ss || se){
+          valid[row][column] = who;
+        }
+      }
+    }
+  }
+  return valid;
+}
+
+function flip_line(who, dr, dc, r, c, board){
+  if( (r+dr < 0) || (r+dr > 7) ){
+    return false;
+  }
+  if( (c+dc < 0) || (c+dc > 7) ){
+    return false;
+  }
+
+  if(board[r+dr][c+dc] === ' '){
+    return false;
+  }
+  if(board[r+dr][c+dc] === who){
+    return true;
+  }
+  else{
+    if(flip_line(who,dr,dc,r+dr,c+dc,board)){
+      board[r+dr][c+dc] = who;
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+}
+
+function flip_board(who, row, column, board){
+  flip_line(who,-1,-1,row,column,board);
+  flip_line(who,-1, 0,row,column,board);
+  flip_line(who,-1, 1,row,column,board);
+
+  flip_line(who, 0,-1,row,column,board);
+  flip_line(who, 0, 1,row,column,board);
+
+  flip_line(who, 1,-1,row,column,board);
+  flip_line(who, 1, 0,row,column,board);
+  flip_line(who, 1, 1,row,column,board);
+}
 
   var game = {
     whose_turn: 'dark',
@@ -23,6 +148,44 @@ $('.drawn').ready(function(){
     last_move_time: d.getTime(),
   }
 
+function setInitialSquares(){
+  for(let row = 0; row < 8; row++){
+    for( let column = 0; column < 8; column ++){
+      if(game.board[row][column] == 'l'){
+        $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
+      } else if (game.board[row][column] == 'd'){
+        $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="dark square"/>');
+      }
+    }
+  }
+}
+
+function drawBoard(){
+  let squares = [];
+  let rowCount = 0;
+  let colCount = 0;
+
+  for (let i = 0; i < 64; i++){
+    squares[i] = {
+      squareName:`${rowCount}_${colCount}`,
+      row: rowCount,
+      col: colCount
+    };
+    if((colCount+1)%8 === 0){
+      colCount = 0;
+      rowCount++
+    } else {
+      colCount++
+    }
+  }
+  squares.map(square => {
+    return (
+      $('#board').addClass('drawn').append(`<div id=${square.squareName} class='square' onClick='clickASquare(${square.row},${square.col}); return false;' alt='empty square'></div>`)
+    )
+  })  
+}
+
+$('.drawn').ready(function(){
 
   $('#my_color').html('<h2 id="#my_color">I am '+my_color+'</h2>');
   $('#my_color').append('<h3>It is <span class="turn-bold">'+game.whose_turn+'\'s turn</span>. Elapsed time <span id="elapsed"></span></h3>');
@@ -55,13 +218,7 @@ $('.drawn').ready(function(){
       if(game.whose_turn === my_color){
         if(game.legal_moves[row][column] === my_color.substr(0,1)){
           if(old_board[row][column] != game.board[row][column]){
-            if(old_board[row][column] == '?' && game.board[row][column] == ' '){
-              $(`#${row}_${column}`).html('<div alt="empty square"/>');
-            } else if(old_board[row][column] == 'l' && game.board[row][column] == 'l'){
-              $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem alt="light square"/>');
-            } else if(old_board[row][column] == 'd' && game.board[row][column] == 'd'){
-              $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem alt="dark square"/>');
-            } else if(old_board[row][column] == ' ' && game.board[row][column] == 'l'){
+            if(old_board[row][column] == ' ' && game.board[row][column] == 'l'){
               $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
             } else if(old_board[row][column] == ' ' && game.board[row][column] == 'd'){
               $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="dark square"/>');
@@ -197,134 +354,10 @@ $('.drawn').ready(function(){
 
 
 
-/*******/
-
-
-/* Check if there is a color 'who' on the line starting at (r,c) or
- * anywhere further by adding dr and dc to (r,c) */
-
-function check_line_match(who, dr, dc, r, c, board){
-  if(board[r][c] === who){
-    return true;
-  }
-  if(board[r][c] === ' '){
-    return false;
-  }
-
-  if( (r+dr < 0) || (r+dr > 7) ){
-    return false;
-  }
-  if( (c+dc < 0) || (c+dc > 7) ){
-    return false;
-  }
-  return check_line_match(who, dr, dc, r+dr, c+dc, board);
-}
-
-
-/* Check if the position at r,c contains the opposite of who on the board
- * and if the line indicated by adding dr to r and dc to c eventually sends
- * in the who color */
-
-function valid_move(who,dr,dc,r,c,board){
-  var other;
-  if(who === 'd'){
-    other = 'l';
-  }
-  else if(who === 'l'){
-    other = 'd';
-  }
-  else{
-    log('Houston, we have a color problem: '+who);
-    return false;
-  }
-  if( (r+dr < 0) || (r+dr > 7) ){
-    return false;
-  }
-  if( (c+dc < 0) || (c+dc > 7) ){
-    return false;
-  }
-  if(board[r+dr][c+dc] != other){
-    return false;
-  }
-  if( (r+dr+dr < 0) || (r+dr+dr > 7) ){
-    return false;
-  }
-  if( (c+dc+dc < 0) || (c+dc+dc > 7) ){
-    return false;
-  }
-  return check_line_match(who, dr, dc, r+dr+dr, c+dc+dc, board);
-}
-
-function calculate_valid_moves(who, board){
-  var valid = [
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' '],
-                  [' ',' ',' ',' ',' ',' ',' ',' ']
-                ];
-  for(var row = 0; row < 8; row++){
-    for(var column = 0; column < 8; column++){
-      if(board[row][column] === ' '){
-        nw = valid_move(who,-1,-1,row,column,board);
-        nn = valid_move(who,-1, 0,row,column,board);
-        ne = valid_move(who,-1, 1,row,column,board);
-
-        ww = valid_move(who, 0,-1,row,column,board);
-        ee = valid_move(who, 0, 1,row,column,board);
-
-        sw = valid_move(who, 1,-1,row,column,board);
-        ss = valid_move(who, 1, 0,row,column,board);
-        se = valid_move(who, 1, 1,row,column,board);
-
-        if(nw || nn || ne || ww || ee || sw || ss || se){
-          valid[row][column] = who;
-        }
-      }
-    }
-  }
-  return valid;
-}
-
-function flip_line(who, dr, dc, r, c, board){
-  if( (r+dr < 0) || (r+dr > 7) ){
-    return false;
-  }
-  if( (c+dc < 0) || (c+dc > 7) ){
-    return false;
-  }
-
-  if(board[r+dr][c+dc] === ' '){
-    return false;
-  }
-  if(board[r+dr][c+dc] === who){
-    return true;
-  }
-  else{
-    if(flip_line(who,dr,dc,r+dr,c+dc,board)){
-      board[r+dr][c+dc] = who;
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-}
-
-function flip_board(who, row, column, board){
-  flip_line(who,-1,-1,row,column,board);
-  flip_line(who,-1, 0,row,column,board);
-  flip_line(who,-1, 1,row,column,board);
-
-  flip_line(who, 0,-1,row,column,board);
-  flip_line(who, 0, 1,row,column,board);
-
-  flip_line(who, 1,-1,row,column,board);
-  flip_line(who, 1, 0,row,column,board);
-  flip_line(who, 1, 1,row,column,board);
-}
 
   });
+
+window.onload=function(){
+  drawBoard();
+  setInitialSquares();
+}
