@@ -151,6 +151,9 @@ function flip_board(who, row, column, board){
 function setInitialSquares(){
   for(let row = 0; row < 8; row++){
     for( let column = 0; column < 8; column ++){
+      if(game.board[row][column] == ' '){
+        $(`#${row}_${column}`).addClass('hovered_over');
+      }
       if(game.board[row][column] == 'l'){
         $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
       } else if (game.board[row][column] == 'd'){
