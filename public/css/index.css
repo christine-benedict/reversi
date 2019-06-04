@@ -90,6 +90,7 @@ input::placeholder {
 
 .subheader {
 	display: flex;
+	flex-wrap: wrap;
 	color: white;
 	font-family: 'Luckiest Guy';
 	text-decoration: underline;

@@ -190,8 +190,8 @@ function drawBoard(){
 
 $('.drawn').ready(function(){
 
-  $('#my_color').html('<h2 id="#my_color">I am '+my_color+'</h2>');
-  $('#my_color').append('<h3>It is <span class="turn-bold">'+game.whose_turn+'\'s turn</span>. Elapsed time <span id="elapsed"></span></h3>');
+  $('#my_color').html('I am '+my_color);
+  $('#my_color').append('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
 
   clearInterval(interval_timer);
   interval_timer = setInterval(function(last_time){
@@ -203,10 +203,10 @@ $('.drawn').ready(function(){
       var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
 
       if(seconds < 10){
-      $('#elapsed').html(minutes+':0'+seconds);
+      $('#elapsed').html(`${minutes}:0${seconds}`);
       }
       else{
-      $('#elapsed').html(minutes+':'+seconds);
+      $('#elapsed').html(`${minutes}:${seconds}`);
       }
 
     }}(game.last_move_time), 1000);
