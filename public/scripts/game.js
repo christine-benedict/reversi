@@ -5,7 +5,11 @@ function drawBoard(){
 	let colCount = 0;
 
 	for (let i = 0; i < 64; i++){
-		squares[i] = `${rowCount}_${colCount}`;
+		squares[i] = {
+			squareName:`${rowCount}_${colCount}`,
+			row: rowCount,
+			col: colCount
+		};
 		if((colCount+1)%8 === 0){
 			colCount = 0;
 			rowCount++
@@ -15,7 +19,7 @@ function drawBoard(){
 	}
 	squares.map(square => {
 		return (
-			$('#board').addClass('drawn').append(`<div id=${square} class='square'></div>`)
+			$('#board').addClass('drawn').append(`<div id=${square.squareName} class='square' onClick='clickASquare(${square.row},${square.col}); return false;' ></div>`)
 		)
 	})	
 }

@@ -21,6 +21,12 @@ if('undefined' == typeof chatRoom || !chatRoom){
 	chatRoom = 'lobby';
 }
 
+var gameType = getURLparams('gameType');
+
+function playARobot(){
+	window.location.href = 'sologame.html?username='+username+'&gameType=solo';
+}
+
 // Connect to socket server
 var socket = io.connect();
 
