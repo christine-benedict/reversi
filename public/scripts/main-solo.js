@@ -18,27 +18,38 @@ var lightsum = 2;
 var interval_timer;
 var d = new Date();
 
+var computerOptions = [];
+var computerMoveTimeout;
+
+// Create initial game state
+var game = {
+  whose_turn: 'dark',
+  board: JSON.parse(JSON.stringify(old_board)),
+  legal_moves: calculate_valid_moves('d', old_board),
+  last_move_time: d.getTime(),
+}
+
 // Once things are drawn, set the text for my color and elapsed time
-$('#my_color').html('I am '+my_color);
-$('#my_color').append('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+$('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
 
-clearInterval(interval_timer);
-interval_timer = setInterval(function(last_time){
-  return function (){
-    //Do the work of updating the UI
-    var d = new Date();
-    var elapsedmilli = d.getTime() - last_time;
-    var minutes = Math.floor(elapsedmilli / (60 * 1000));
-    var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
+function intervalTimer(last_move_time){
+  interval_timer = setInterval(function(last_time){
+    return function (){
+      //Do the work of updating the UI
+      var d = new Date();
+      var elapsedmilli = d.getTime() - last_time;
+      var minutes = Math.floor(elapsedmilli / (60 * 1000));
+      var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
 
-    if(seconds < 10){
-    $('#elapsed').html(`${minutes}:0${seconds}`);
-    }
-    else{
-    $('#elapsed').html(`${minutes}:${seconds}`);
-    }
+      if(seconds < 10){
+      $('#elapsed').html(`${minutes}:0${seconds}`);
+      }
+      else{
+      $('#elapsed').html(`${minutes}:${seconds}`);
+      }
 
-  }}(game.last_move_time), 1000);
+    }}(last_move_time), 1000);
+}
 
 // Function declarations
 function check_line_match(who, dr, dc, r, c, board){
@@ -117,9 +128,16 @@ function calculate_valid_moves(who, board){
         sw = valid_move(who, 1,-1,row,column,board);
         ss = valid_move(who, 1, 0,row,column,board);
         se = valid_move(who, 1, 1,row,column,board);
+        
+        $(`#${row}_${column}`).removeClass('hovered_over');
 
         if(nw || nn || ne || ww || ee || sw || ss || se){
           valid[row][column] = who;
+          if(who === 'l'){
+            computerOptions.push({row: row, column: column});
+          } else if(who ==='d'){
+            $(`#${row}_${column}`).addClass('hovered_over');
+          }
         }
       }
     }
@@ -166,24 +184,35 @@ function flip_board(who, row, column, board){
 }
 
 function updateBoardImages(){
-  for(let row = 0; row < 8; row++){
-    for(let column = 0; column < 8; column ++){
-      
-      // This is a good time to also update the hover based on legal moves
-      if(game.board[row][column] == ' ' && game.legal_moves[row][column] === my_color.substr(0,1)){
-        $(`#${row}_${column}`).addClass('hovered_over');
-      } else {
-        $(`#${row}_${column}`).removeClass('hovered_over');
-      }
 
-      if(old_board[row][column] != game.board[row][column]){
-        if(old_board[row][column] == 'l' && game.board[row][column] == ' '){
-          $(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="empty square"/>');
-        } else if(old_board[row][column] == 'd' && game.board[row][column] == ' '){
-          $(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="empty square"/>');
-        } else if(old_board[row][column] == 'l' && game.board[row][column] == 'd'){
-          $(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>')
-        } else if(old_board[row][column] == 'd' && game.board[row][column] == 'l'){
+  darksum = 0;
+  lightsum = 0;
+
+  for(let row = 0; row < 8; row++){
+    for(let column = 0; column < 8; column++){
+      
+      if(game.board[row][column] == 'l'){
+        lightsum = lightsum +1;
+      }
+      if(game.board[row][column] == 'd'){
+        darksum = darksum + 1
+      }
+      
+      // // This is a good time to also update the hover based on legal moves
+      // if(game.board[row][column] == ' ' && game.legal_moves[row][column] === my_color.substr(0,1)){
+      //   $(`#${row}_${column}`).addClass('hovered_over');
+      // } else {
+      //   $(`#${row}_${column}`).removeClass('hovered_over');
+      // }
+
+      if(old_board[row][column] !== game.board[row][column]){  
+        if(old_board[row][column] === ' ' && game.board[row][column] === 'd'){
+          $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
+        } else if(old_board[row][column] === ' ' && game.board[row][column] === 'l'){
+          $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
+        } else if(old_board[row][column] === 'l' && game.board[row][column] === 'd'){
+          $(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
+        } else if(old_board[row][column] === 'd' && game.board[row][column] === 'l'){
           $(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
         } else {
           $(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
@@ -191,7 +220,7 @@ function updateBoardImages(){
       }
     }
   }
-  old_board = game.board;
+  old_board = JSON.parse(JSON.stringify(game.board));
 }
 
 function checkIfWinner(){
@@ -232,13 +261,6 @@ function checkIfWinner(){
   }
 }
 
-// Create initial game state
-var game = {
-  whose_turn: 'dark',
-  board: old_board,
-  legal_moves: calculate_valid_moves('d', old_board),
-  last_move_time: d.getTime(),
-}
 
 // Actually draw the game board
 function drawBoard(){
@@ -282,6 +304,36 @@ function setInitialSquares(){
   }
 }
 
+function computersTurn(row, column){
+
+    // Add move to board array
+    game.board[row][column] = 'l';
+
+    // Flip tokens in the board array
+    flip_board('l', row, column, game.board);
+    
+    // Place the appropriate token images
+    updateBoardImages();
+    
+
+    // End of the player's move, add one to the count
+    $('#darksum').html(darksum);
+    $('#lightsum').html(lightsum);
+    
+
+    // Check if winner
+    checkIfWinner();
+
+    // Change whose turn it is
+    game.whose_turn = 'dark';
+    game.legal_moves = calculate_valid_moves('d', game.board);
+    game.last_move_time = d.getTime();
+    $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+    clearInterval(interval_timer);
+    intervalTimer(game.last_move_time);
+    clearTimeout(computerMoveTimeout);
+}
+
 // Functionality for when a user clicks a square
 function clickASquare(row, column){
 
@@ -298,12 +350,10 @@ function clickASquare(row, column){
       flip_board('d', row, column, game.board);
       
       // Place the appropriate token images
-      $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
-      updateBoardImages();
+      updateBoardImages('d');
       
 
       // End of the player's move, add one to the count
-      darksum = darksum + 1
       $('#darksum').html(darksum);
       $('#lightsum').html(lightsum);
       
@@ -315,6 +365,18 @@ function clickASquare(row, column){
       game.whose_turn = 'light';
       game.legal_moves = calculate_valid_moves('l', game.board);
       game.last_move_time = d.getTime();
+      $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+      clearInterval(interval_timer);
+      intervalTimer(game.last_move_time);
+      
+
+      let computerMove = Math.floor(Math.random()*computerOptions.length);
+      
+      console.log(computerOptions[computerMove].row, computerOptions[computerMove].column);
+
+      computerMoveTimeout = setTimeout(() => {
+        computersTurn(computerOptions[computerMove].row, computerOptions[computerMove].column)}, 3000
+      );
     }
   }
 }
@@ -324,4 +386,5 @@ window.onload=function(){
   setInitialSquares();
   $('#darksum').html(darksum);
   $('#lightsum').html(lightsum);
+  intervalTimer(game.last_move_time);
 }
