@@ -225,13 +225,13 @@ function updateBoardImages(){
 
 function checkIfWinner(){
   /* Check to see if the game is over */
-  var row, column, winner;
+  var winner;
   var count = 0;
   var black = 0;
   var white = 0;
   for(let row = 0; row < 8; row++){
     for(let column = 0; column < 8; column++){
-      if(game.legal_moves[row][column] != ' '){
+      if(game.legal_moves[row][column] !== ' '){
         count++;
       }
       if(game.board[row][column] === 'd'){
@@ -326,8 +326,9 @@ function computersTurn(row, column){
 
     // Change whose turn it is
     game.whose_turn = 'dark';
-    game.legal_moves = calculate_valid_moves('d', game.board);
+    game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('d', game.board)));
     game.last_move_time = d.getTime();
+    computerOptions = [];
     $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
     clearInterval(interval_timer);
     intervalTimer(game.last_move_time);
@@ -363,7 +364,7 @@ function clickASquare(row, column){
 
       // Change whose turn it is
       game.whose_turn = 'light';
-      game.legal_moves = calculate_valid_moves('l', game.board);
+      game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('l', game.board)));
       game.last_move_time = d.getTime();
       $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
       clearInterval(interval_timer);
