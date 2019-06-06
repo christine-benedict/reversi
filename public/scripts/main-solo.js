@@ -18,6 +18,28 @@ var lightsum = 2;
 var interval_timer;
 var d = new Date();
 
+// Once things are drawn, set the text for my color and elapsed time
+$('#my_color').html('I am '+my_color);
+$('#my_color').append('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+
+clearInterval(interval_timer);
+interval_timer = setInterval(function(last_time){
+  return function (){
+    //Do the work of updating the UI
+    var d = new Date();
+    var elapsedmilli = d.getTime() - last_time;
+    var minutes = Math.floor(elapsedmilli / (60 * 1000));
+    var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
+
+    if(seconds < 10){
+    $('#elapsed').html(`${minutes}:0${seconds}`);
+    }
+    else{
+    $('#elapsed').html(`${minutes}:${seconds}`);
+    }
+
+  }}(game.last_move_time), 1000);
+
 // Function declarations
 function check_line_match(who, dr, dc, r, c, board){
   if(board[r][c] === who){
@@ -260,83 +282,42 @@ function setInitialSquares(){
   }
 }
 
-  
-  // Once things are drawn, set the text for my color and elapsed time
-  $('#my_color').html('I am '+my_color);
-  $('#my_color').append('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+// Functionality for when a user clicks a square
+function clickASquare(row, column){
 
-  clearInterval(interval_timer);
-  interval_timer = setInterval(function(last_time){
-    return function (){
-      //Do the work of updating the UI
-      var d = new Date();
-      var elapsedmilli = d.getTime() - last_time;
-      var minutes = Math.floor(elapsedmilli / (60 * 1000));
-      var seconds = Math.floor((elapsedmilli % (60 * 1000))/ 1000);
+  // Check to make sure it is the player's turn
+  if(game.whose_turn === my_color){
 
-      if(seconds < 10){
-      $('#elapsed').html(`${minutes}:0${seconds}`);
-      }
-      else{
-      $('#elapsed').html(`${minutes}:${seconds}`);
-      }
+    // Check if valid move
+    if(game.legal_moves[row][column] === my_color.substr(0,1)){
 
-    }}(game.last_move_time), 1000);
+      // Add move to board array
+      game.board[row][column] = 'd';
 
+      // Flip tokens in the board array
+      flip_board('d', row, column, game.board);
+      
+      // Place the appropriate token images
+      $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
+      updateBoardImages();
+      
 
-    // Functionality for when a user clicks a square
-    function clickASquare(row, column){
+      // End of the player's move, add one to the count
+      darksum = darksum + 1
+      $('#darksum').html(darksum);
+      $('#lightsum').html(lightsum);
+      
 
-      // Check to make sure it is the player's turn
-      if(game.whose_turn === my_color){
+      // Check if winner
+      checkIfWinner();
 
-        // Check if valid move
-        if(game.legal_moves[row][column] === my_color.substr(0,1)){
-
-          // Add move to board array
-          game.board[row][column] = 'd';
-
-          // Flip tokens in the board array
-          flip_board('d', row, column, game.board);
-          
-          // Place the appropriate token images
-          $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
-          updateBoardImages();
-          
-
-          // End of the player's move, add one to the count
-          darksum = darksum + 1
-          $('#darksum').html(darksum);
-          $('#lightsum').html(lightsum);
-          
-
-          // Check if winner
-          checkIfWinner();
-
-          // Change whose turn it is
-          game.whose_turn = 'light';
-          game.legal_moves = calculate_valid_moves('l', game.board);
-          game.last_move_time = d.getTime();
-        }
-      }
+      // Change whose turn it is
+      game.whose_turn = 'light';
+      game.legal_moves = calculate_valid_moves('l', game.board);
+      game.last_move_time = d.getTime();
     }
-
-
-
-// /* Execute the move */
-// if(game.whose_turn == 'dark'){
-//   game.board[row][column] = 'd';
-//   flip_board('l',row,column,game.board);
-//   game.whose_turn = 'light';
-//   game.legal_moves = calculate_valid_moves('l', game.board);
-// }
-// else if(game.whose_turn == 'light'){
-//   game.board[row][column] = 'l';
-//   flip_board('d',row,column,game.board);
-//   game.whose_turn = 'dark';
-//   game.legal_moves = calculate_valid_moves('d', game.board);
-// }
-
+  }
+}
 
 window.onload=function(){
   drawBoard();
