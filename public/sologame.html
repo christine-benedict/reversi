@@ -9,35 +9,31 @@
     <!-- Bootstrap CSS -->
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
     <link rel='stylesheet' href='./css/index.css'/>
+    <link rel='stylesheet' href='./css/game.css'/>
 
-    <title>Reversi | Enter name</title>
+    <title>Reversi | Game Board</title>
   </head>
   <body>
-    <h1 class='header-wrapper'>Choose your opponent</h1>
+    <div class='header-wrapper'>
+      <h1 class="subheader">I am Black</h1>
+      <h1 class="subheader" id='my_color'></h1>
+      <div id='quit'></div>
+    </div>
     <div class='main-content-wrapper'>
-      <div class='entrance-content'>
-        <div class='two-column'>
-          <a href="./sologame.html"><button class="robot small">Play a Robot</button></a>
-          <h3 class="subheader">Messages</h3>
-          <div id="messages">
-          </div>
-          <div class='main-content-wrapper'>
-            <form id="chat-form" onSubmit='sendMessage(); reset(); return false;' autocomplete="off">
-              <label for="send_message_holder" class="sr-only">Enter message: </label>
-              <input id="send_message_holder" type="text" value=''placeholder="Enter message"/>
-              <button class="submit" type="submit">Send</button>
-            </form>
-          </div>
-        </div>
-        <div class='two-column'>
-          <h3 class="subheader">Players</h3>
-          <div id='players'>
-          </div>
-        </div>
-
+      <div id="token-image-container" class="full-width">
+        <img class="animate-left" src="./assets/tokens-01.svg" width="70rem" height="70rem" alt='white score'/> <img class="animate-right" src="./assets/tokens-02.svg" width="70rem" height="70rem" alt='black score'/>
       </div>
-      <div class='entrance-content'>
-        <a href='./index.html'><button class='small'>Start Over</button></a>
+      <div id='scores'>
+        <span id='lightsum' class="color-score"></span>
+        <span id='darksum' class="color-score"></span>
+      </div>
+      </div>
+      <div id='game_over'></div>
+    </div>
+    <div class='main-content-wrapper'>
+      <div id='board-column'>
+        <div id='board'>
+        </div>
       </div>
     </div>
     <!-- Optional JavaScript -->
@@ -50,5 +46,6 @@
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js" integrity="sha256-i2Orhi397HWPn93rsCUTW8HBoso65vY/VNTllm9Kuqo=" crossorigin="anonymous"></script>
-  <script src='./scripts/main.js'></script>
+  <script src='./scripts/main-solo.js'></script>
+
 </html>
