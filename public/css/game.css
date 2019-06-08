@@ -39,6 +39,7 @@ h2{
 
 .color-score {
 	padding: 0 4rem;
+	color: white;
 }
 
 .square {
@@ -161,9 +162,20 @@ h2{
     flex-wrap: wrap;
     flex-direction: column;
     align-content: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     text-align: center;
     font-family: 'Press Start 2P';
     color: white;
+}
+
+.game_over {
+	position: absolute;
+	height:120%;
+	top:0;
+	bottom: 0;
+	left:0;
+	right:0;
+	background-color:rgba(0, 0, 0, 0.75);
+	z-index: 10;
 }

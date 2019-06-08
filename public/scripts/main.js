@@ -318,10 +318,10 @@ socket.on('game_update', function(payload){
 		var row, column;
 		for(row = 0; row < 8; row++){
 			for( column = 0; column < 8; column ++){
-				if(board[row][column] == 'b'){
+				if(board[row][column] == 'd'){
 					darksum++
 				}
-				if(board[row][column] == 'w'){
+				if(board[row][column] == 'l'){
 					lightsum++
 				}
 				
@@ -329,28 +329,32 @@ socket.on('game_update', function(payload){
 				if(old_board[row][column] != board[row][column]){
 					if(old_board[row][column] == '?' && board[row][column] == ' '){
 						$(`#${row}_${column}`).html('<div alt="empty square"/>');
-					} else if(old_board[row][column] == '?' && board[row][column] == 'w'){
+					} else if(old_board[row][column] == '?' && board[row][column] == 'l'){
 						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem alt="light square"/>');
-					} else if(old_board[row][column] == '?' && board[row][column] == 'b'){
+					} else if(old_board[row][column] == '?' && board[row][column] == 'd'){
 						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem alt="dark square"/>');
-					} else if(old_board[row][column] == ' ' && board[row][column] == 'w'){
+					} else if(old_board[row][column] == ' ' && board[row][column] == 'l'){
 						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
-					} else if(old_board[row][column] == ' ' && board[row][column] == 'b'){
+					} else if(old_board[row][column] == ' ' && board[row][column] == 'd'){
 						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="dark square"/>');
-					} else if(old_board[row][column] == 'w' && board[row][column] == ' '){
+					} else if(old_board[row][column] == 'l' && board[row][column] == ' '){
 						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="empty square"/>');
-					} else if(old_board[row][column] == 'b' && board[row][column] == ' '){
+					} else if(old_board[row][column] == 'd' && board[row][column] == ' '){
 						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="empty square"/>');
-					} else if(old_board[row][column] == 'w' && board[row][column] == 'b'){
+					} else if(old_board[row][column] == 'l' && board[row][column] == 'd'){
 						$(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
-					} else if(old_board[row][column] == 'b' && board[row][column] == 'w'){
+					} else if(old_board[row][column] == 'd' && board[row][column] == 'l'){
 						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
 					} else {
 						$(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
 					}
 
 					$(`#${row}_${column}`).off('click');
-					if(board[row][column] == ' '){
+					$(`#${row}_${column}`).removeClass('hovered_over');
+
+
+					if(payload.game.whose_turn === my_color){
+  						if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
 						$(`#${row}_${column}`).addClass('hovered_over');
 						$(`#${row}_${column}`).click(function(r,c){
 							return function(){
@@ -390,7 +394,7 @@ socket.on('game_update', function(payload){
 			return;
 		}
 
-		$('#game_over').html('<h1>Game Over</h1><h2>'+payload.who_won+' won!</h2>');
+		$('#game_over').html('<h1>Game Over</h1><h2>'+payload.who_won+' won!</h2>').addClass('game_over');
 		$('#game_over').append('<a href="lobby.html?username='+username+'"><button class="large" aria-pressed="true">Return to the lobby</button></a>');		
 	});
 });

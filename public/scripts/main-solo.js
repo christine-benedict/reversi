@@ -259,8 +259,11 @@ function checkIfWinner(){
   }
   
   if (winner !== null && winner !== undefined){
-    $('#game_over').html('<h1>Game over</h1><h2>'+winner+' won!</h2>');
-    $('#game_over').append('<a href="./index.html+" role="button" aria-pressed="true"><button class="large home">Return</button></a>');
+    $('#game_over').html('<h1>Game over</h1><h2>'+winner+' won!</h2>').addClass('game_over');
+    $('#game_over').append('<a href="./index.html" role="button" aria-pressed="true"><button class="large home">Return to Start</button></a><a href="./sologame.html" role="button" aria-pressed="true"><button class="large home">Play Again</button></a>');
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -375,9 +378,11 @@ function clickASquare(row, column){
 
       let computerMove = Math.floor(Math.random()*computerOptions.length);
       
-      computerMoveTimeout = setTimeout(() => {
-        computersTurn(computerOptions[computerMove].row, computerOptions[computerMove].column)}, 3000
-      );
+      if(!checkIfWinner()){
+        computerMoveTimeout = setTimeout(() => {
+          computersTurn(computerOptions[computerMove].row, computerOptions[computerMove].column)}, 3000
+        );
+      }
     }
   }
 }
