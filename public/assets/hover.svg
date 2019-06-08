@@ -12,5 +12,5 @@
 	<text id="text" transform="matrix(1 0 0 1 8.1767 36.1321)" class="st0 st1">Punch!</text>
 </g>
 
-	<animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.3" to="0.3" values="0.3; 1.5; 0.3" dur="2s" repeatCount="indefinite"/>
+	<animateTransform attributeName="transform" attributeType="XML" type="scale" from="0.3" to="0.3" values="0.3; 1.5; 0.3" dur="2s" repeatCount="indefinite" overflow="visible"/>
 </svg>

@@ -639,15 +639,15 @@ io.sockets.on('connection', function(socket){
 		socket.emit('play_token_response', success_data);
 
 		if(color == 'light'){
-			game.board[row][column] = 'w';
-			flip_board('w',row,column,game.board);
+			game.board[row][column] = 'l';
+			flip_board('l',row,column,game.board);
 			game.whose_turn = 'dark';
-			game.legal_moves = calculate_valid_moves('b',game.board);
+			game.legal_moves = calculate_valid_moves('d',game.board);
 		} else if(color == 'dark'){
-			game.board[row][column] = 'b';
-			flip_board('b',row,column,game.board);
+			game.board[row][column] = 'd';
+			flip_board('d',row,column,game.board);
 			game.whose_turn = 'light';
-			game.legal_moves = calculate_valid_moves('w',game.board);
+			game.legal_moves = calculate_valid_moves('l',game.board);
 		}
 
 		var d = new Date();
@@ -673,20 +673,20 @@ function create_new_game(){
 	var d = new Date();
 	new_game.last_move_time = d.getTime();
 
-	new_game.whose_turn = 'light';
+	new_game.whose_turn = 'dark';
 
 	new_game.board = [
 		[' ',' ',' ',' ',' ',' ',' ',' '],
 		[' ',' ',' ',' ',' ',' ',' ',' '],
 		[' ',' ',' ',' ',' ',' ',' ',' '],
-		[' ',' ',' ','w','b',' ',' ',' '],
-		[' ',' ',' ','b','w',' ',' ',' '],
+		[' ',' ',' ','l','d',' ',' ',' '],
+		[' ',' ',' ','d','l',' ',' ',' '],
 		[' ',' ',' ',' ',' ',' ',' ',' '],
 		[' ',' ',' ',' ',' ',' ',' ',' '],
 		[' ',' ',' ',' ',' ',' ',' ',' ']
 	];
 
-	new_game.legal_moves = calculate_valid_moves('b', new_game.board);
+	new_game.legal_moves = calculate_valid_moves('d', new_game.board);
 
 	return new_game;
 }
@@ -719,10 +719,10 @@ function check_line_match(who, dr, dc, r, c, board){
 function valid_move(who,dr,dc,r,c,board){
 	var other;
 
-	if(who === 'b'){
-    	other = 'w';
-	} else if(who === 'w'){
-   		other = 'b';
+	if(who === 'd'){
+    	other = 'l';
+	} else if(who === 'l'){
+   		other = 'd';
   	} else {
     	log('Houston, we have a color problem: '+who);
     	return false;
@@ -906,10 +906,10 @@ function send_game_update(socket, game_id, message){
 			if(games[game_id].legal_moves[row][column] != ' '){
 				count++;
 			}
-			if(games[game_id].board[row][column] === 'b'){
+			if(games[game_id].board[row][column] === 'd'){
 				dark++;
 			}
-			if(games[game_id].board[row][column] === 'w'){
+			if(games[game_id].board[row][column] === 'l'){
 				light++;
 			}
 		}

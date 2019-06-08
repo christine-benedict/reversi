@@ -290,8 +290,8 @@ socket.on('game_update', function(payload){
 		return;
 	}
 
-	$('#my_color').html('<h3 id="my_color">I am '+my_color+'</h3>');
-	$('#my_color').append('<h4>It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
+	$('#my_color').html('<h3 class="subheader"id="my_color">I am '+my_color+'</h3>');
+	$('#my_color').append('<h4 class="sub-subheader">It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
 
 	clearInterval(interval_timer);
 	interval_timer = setInterval(function(last_time){
@@ -330,21 +330,21 @@ socket.on('game_update', function(payload){
 					if(old_board[row][column] == '?' && board[row][column] == ' '){
 						$(`#${row}_${column}`).html('<div alt="empty square"/>');
 					} else if(old_board[row][column] == '?' && board[row][column] == 'l'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="light square"/>');
 					} else if(old_board[row][column] == '?' && board[row][column] == 'd'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'l'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="light square"/>');
 					} else if(old_board[row][column] == ' ' && board[row][column] == 'd'){
-						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="dark square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == 'l' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" height="80rem  alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="empty square"/>');
 					} else if(old_board[row][column] == 'd' && board[row][column] == ' '){
-						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" height="80rem  alt="empty square"/>');
+						$(`#${row}_${column}`).html('<img class="fade-out" src="./assets/tokens-02.svg" width="80rem" height="80rem" alt="empty square"/>');
 					} else if(old_board[row][column] == 'l' && board[row][column] == 'd'){
 						$(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
 					} else if(old_board[row][column] == 'd' && board[row][column] == 'l'){
-						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
+						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem" alt="light square"/>');
 					} else {
 						$(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
 					}
@@ -355,19 +355,18 @@ socket.on('game_update', function(payload){
 
 					if(payload.game.whose_turn === my_color){
   						if(payload.game.legal_moves[row][column] === my_color.substr(0,1)){
-						$(`#${row}_${column}`).addClass('hovered_over');
-						$(`#${row}_${column}`).click(function(r,c){
-							return function(){
-								var payload = {};
-								payload.row = r;
-								payload.column = c;
-								payload.color = my_color;
-								console.log('*** Client Log Message: \'play token\' payload: '+JSON.stringify(payload));
-								socket.emit('play_token', payload)
-							};
-						}(row,column));
-					} else {
-						$(`#${row}_${column}`).removeClass('hovered_over');
+							$(`#${row}_${column}`).addClass('hovered_over');
+							$(`#${row}_${column}`).click(function(r,c){
+								return function(){
+									var payload = {};
+									payload.row = r;
+									payload.column = c;
+									payload.color = my_color;
+									console.log('*** Client Log Message: \'play token\' payload: '+JSON.stringify(payload));
+									socket.emit('play_token', payload)
+								};
+							}(row,column));
+						}
 					}
 				}
 			}
