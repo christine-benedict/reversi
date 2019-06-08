@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 input:focus,
 select:focus,
@@ -80,6 +81,7 @@ input::placeholder {
 
 .header-wrapper{
 	display: flex;
+	flex-wrap: wrap;
 	width:100%;
 	justify-content: center;
 	text-align: center;

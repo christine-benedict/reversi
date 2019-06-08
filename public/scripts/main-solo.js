@@ -16,7 +16,7 @@ var my_color = 'dark';
 var darksum = 2;
 var lightsum = 2;
 var interval_timer;
-var d = new Date();
+var date = new Date();
 
 var computerOptions = [];
 var computerMoveTimeout;
@@ -26,13 +26,14 @@ var game = {
   whose_turn: 'dark',
   board: JSON.parse(JSON.stringify(old_board)),
   legal_moves: calculate_valid_moves('d', old_board),
-  last_move_time: d.getTime(),
+  last_move_time: date.getTime(),
 }
 
 // Once things are drawn, set the text for my color and elapsed time
 $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
 
 function intervalTimer(last_move_time){
+  clearInterval(interval_timer)
   interval_timer = setInterval(function(last_time){
     return function (){
       //Do the work of updating the UI
@@ -227,37 +228,39 @@ function checkIfWinner(){
   /* Check to see if the game is over */
   var winner;
   var count = 0;
-  var black = 0;
-  var white = 0;
+  var dark = 0;
+  var light = 0;
   for(let row = 0; row < 8; row++){
     for(let column = 0; column < 8; column++){
       if(game.legal_moves[row][column] !== ' '){
         count++;
       }
       if(game.board[row][column] === 'd'){
-        black++;
+        dark++;
       }
       if(game.board[row][column] === 'l'){
-        white++;
+        light++;
       }
     }
   }
 
+  console.log('Checking for a winner. ', dark, light, 'Count is '+count)
+
   if(count == 0){
-    if(black === white){
+    if(dark === light){
       winner = 'tie game';
-    } else if(black > white){
-      winner = 'black';
-    } else if(white > black){
-      winner = 'white';
+    } else if(dark > light){
+      winner = 'Dark';
+    } else if(light > dark){
+      winner = 'Light';
     } else {
       winner = null
     }
   }
   
   if (winner !== null && winner !== undefined){
-    $('#game_over').html('<h1>Game over</h1><h2>'+game.who_won+' won!</h2>');
-    $('#game_over').append('<a href="lobby.html?username='+winner+'" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Return to the lobby</a>');
+    $('#game_over').html('<h1>Game over</h1><h2>'+winner+' won!</h2>');
+    $('#game_over').append('<a href="./index.html+" role="button" aria-pressed="true"><button class="large home">Return</button></a>');
   }
 }
 
@@ -319,20 +322,21 @@ function computersTurn(row, column){
     // End of the player's move, add one to the count
     $('#darksum').html(darksum);
     $('#lightsum').html(lightsum);
-    
-
-    // Check if winner
-    checkIfWinner();
 
     // Change whose turn it is
+
     game.whose_turn = 'dark';
     game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('d', game.board)));
-    game.last_move_time = d.getTime();
+    game.last_move_time = new Date().getTime();
     computerOptions = [];
     $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
     clearInterval(interval_timer);
     intervalTimer(game.last_move_time);
     clearTimeout(computerMoveTimeout);
+
+
+    // Check if winner
+    checkIfWinner();
 }
 
 // Functionality for when a user clicks a square
@@ -357,24 +361,20 @@ function clickASquare(row, column){
       // End of the player's move, add one to the count
       $('#darksum').html(darksum);
       $('#lightsum').html(lightsum);
-      
-
-      // Check if winner
-      checkIfWinner();
 
       // Change whose turn it is
       game.whose_turn = 'light';
       game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('l', game.board)));
-      game.last_move_time = d.getTime();
+      game.last_move_time = new Date().getTime();
       $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
       clearInterval(interval_timer);
       intervalTimer(game.last_move_time);
-      
+
+      // Check if winner
+      checkIfWinner();      
 
       let computerMove = Math.floor(Math.random()*computerOptions.length);
       
-      console.log(computerOptions[computerMove].row, computerOptions[computerMove].column);
-
       computerMoveTimeout = setTimeout(() => {
         computersTurn(computerOptions[computerMove].row, computerOptions[computerMove].column)}, 3000
       );

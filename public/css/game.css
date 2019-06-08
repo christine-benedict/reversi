@@ -1,5 +1,9 @@
 * { box-sizing: border-box; }
 
+h2{
+	text-align: center;
+}
+
 .full-width {
 	width: 100%
 }
@@ -150,4 +154,16 @@
 
 .hover {
 	opacity: .25;
+}
+
+#game_over {
+	display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+    font-family: 'Press Start 2P';
+    color: white;
 }
