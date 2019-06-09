@@ -30,7 +30,7 @@ var game = {
 }
 
 // Once things are drawn, set the text for my color and elapsed time
-$('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+  $('#my_color').append(`<h3 class="sub-subheader">It is <span class="${game.whose_turn}">&nbsp;${game.whose_turn}'s&nbsp;</span> turn. <span class="elapsed">&nbsp;&nbsp;Elapsed time <span id="elapsed"></span></span></h3>`);
 
 function intervalTimer(last_move_time){
   clearInterval(interval_timer)
@@ -332,7 +332,7 @@ function computersTurn(row, column){
     game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('d', game.board)));
     game.last_move_time = new Date().getTime();
     computerOptions = [];
-    $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+    $('#my_color').html(`<h3 class="sub-subheader">It is <span class="${game.whose_turn}">&nbsp;${game.whose_turn}'s&nbsp;</span> turn. Elapsed time <span id="elapsed"></span></h3>`);
     clearInterval(interval_timer);
     intervalTimer(game.last_move_time);
     clearTimeout(computerMoveTimeout);
@@ -369,7 +369,7 @@ function clickASquare(row, column){
       game.whose_turn = 'light';
       game.legal_moves = JSON.parse(JSON.stringify(calculate_valid_moves('l', game.board)));
       game.last_move_time = new Date().getTime();
-      $('#my_color').html('<h3 class="sub-subheader">It is '+game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h3>');
+      $('#my_color').html(`<h3 class="sub-subheader">It is <span class="${game.whose_turn}">&nbsp;${game.whose_turn}'s&nbsp;</span> turn. Elapsed time <span id="elapsed"></span></h3>`);
       clearInterval(interval_timer);
       intervalTimer(game.last_move_time);
 

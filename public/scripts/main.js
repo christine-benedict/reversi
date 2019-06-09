@@ -290,8 +290,8 @@ socket.on('game_update', function(payload){
 		return;
 	}
 
-	$('#my_color').html('<h3 class="subheader"id="my_color">I am '+my_color+'</h3>');
-	$('#my_color').append('<h4 class="sub-subheader">It is '+payload.game.whose_turn+'\'s turn. Elapsed time <span id="elapsed"></span></h4>');
+	$('#my_color').html(`<h3 class="subheader"id="my_color">I am <span class="${my_color}">&nbsp;${my_color}&nbsp;</span></h3>`);
+	$('#my_color').append(`<h4 class="sub-subheader">It is <span class="${payload.game.whose_turn}">&nbsp;${payload.game.whose_turn}'s&nbsp;</span> turn. <span class="elapsed">&nbsp;&nbsp;Elapsed time <span id="elapsed"></span></span></h4>`);
 
 	clearInterval(interval_timer);
 	interval_timer = setInterval(function(last_time){
@@ -346,7 +346,7 @@ socket.on('game_update', function(payload){
 					} else if(old_board[row][column] == 'd' && board[row][column] == 'l'){
 						$(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem" alt="light square"/>');
 					} else {
-						$(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
+						$(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem" alt="error"/>');
 					}
 
 					$(`#${row}_${column}`).off('click');

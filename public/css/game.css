@@ -27,7 +27,7 @@ h2{
 }
 
 #scores {
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -179,4 +179,21 @@ h2{
 	right:0;
 	background-color:rgba(0, 0, 0, 0.75);
 	z-index: 10;
+}
+
+#quit {
+	position: absolute;
+	right: 10rem;
+}
+
+@media (max-width:700px) {
+	#quit {
+		position: absolute;
+		right: 1rem;
+	}
+
+	.square {
+		height: 12vw;
+		width: 12vw;
+	}
 }
