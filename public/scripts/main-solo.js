@@ -212,9 +212,15 @@ function updateBoardImages(){
         } else if(old_board[row][column] === ' ' && game.board[row][column] === 'l'){
           $(`#${row}_${column}`).html('<img class="fade-in" src="./assets/tokens-01.svg" width="80rem" height="80rem" alt="dark square"/>').off('click').removeClass('hovered_over');
         } else if(old_board[row][column] === 'l' && game.board[row][column] === 'd'){
-          $(`#${row}_${column}`).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
+          $(`#${row}_${column}`).html(`<img class="fade-in transitional" id="pow" src="./assets/hovers/${Math.floor(Math.random()*7)}.png"/>`).delay(1000).queue(function(n) {
+            $(this).html('<img class="light-to-dark" src="./assets/light_to_dark.svg" width="80rem" height="80rem" alt="dark square"/>');
+            n();
+          })        
         } else if(old_board[row][column] === 'd' && game.board[row][column] === 'l'){
-          $(`#${row}_${column}`).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem alt="light square"/>');
+          $(`#${row}_${column}`).html(`<img class="fade-in transitional" id="pow" src="./assets/hovers/${Math.floor(Math.random()*7)}.png"/>`).delay(1000).queue(function(n) {
+              $(this).html('<img class="dark-to-light" src="./assets/dark_to_light.svg" width="80rem" height="80rem" alt="light square"/>');
+              n();
+          })
         } else {
           $(`#${row}_${column}`).html('<img src="assets/images/error.svg" width="80rem" height="80rem alt="error"/>');
         }
