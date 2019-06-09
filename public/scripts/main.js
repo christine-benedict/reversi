@@ -1,3 +1,6 @@
+import TweenLite from "gsap/TweenLite";
+import MorphSVGPlugin from "../../src/gsap-bonus/MorphSVGPlugin.js";
+
 // General functions
 function getURLparams(param) {
 	var pageUrl = window.location.search.substring(1);
@@ -20,6 +23,14 @@ var chatRoom = getURLparams('game_id');
 if('undefined' == typeof chatRoom || !chatRoom){
 	chatRoom = 'lobby';
 }
+
+var windowSize = window.innerWidth;
+var tokenSize;
+if (window.innerWidth < 700){
+	tokenSize = '12.5vw';
+} else {
+	tokenSize = '80rem';
+};
 
 // Connect to socket server
 var socket = io.connect();
@@ -264,6 +275,15 @@ var old_board = [
 
 var my_color = ' ';
 var interval_timer;
+
+function morphToken() {
+    var tl = new TimelineMax({ repeat: 1 })
+      .set("circle", { transformOrigin: "center center" })
+      .set("#green-circle", { x: 200 })
+      .from("#red-circle", 2, { x: 400, scale: 0, opacity: 0 }, 0)
+      .to("#blue-circle", 2, { x: 400, scale: 0, opacity: 0 }, 0)
+      .to("#green-circle", 2, { scale: 0, opacity: 0 }, 0)
+}
 
 socket.on('game_update', function(payload){
 	console.log('*** Client Log Message: \' game_update\' \n\t payload: '+JSON.stringify(payload));
