@@ -221,7 +221,7 @@ function makeInvitedButton(socket_id){
 }
 
 function makePlayButton(socket_id){
-	var newHTML = '<button type=\'button\' class=\'small\'>Play</button>';
+	var newHTML = '<button type=\'button\' class=\'small green\'>Play</button>';
 	var newNode = $(newHTML);
 	newNode.click(function(){
 		game_start(socket_id);
@@ -265,7 +265,7 @@ var old_board = [
 var my_color = ' ';
 var interval_timer;
 
-socket.on('game_update', function(payload){
+socket.on('game_update', function(payload) {
 	console.log('*** Client Log Message: \' game_update\' \n\t payload: '+JSON.stringify(payload));
 	if(payload.result == 'fail'){
 		console.log(payload.message);
