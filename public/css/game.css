@@ -21,9 +21,9 @@ h2{
 #board {
 	display: grid;
     grid-template-columns: repeat(8, 1fr);
-    border: 1px solid white;
+    border: 2px solid white;
     background-color: white;
-    grid-gap: 1px;
+    grid-gap: 2px;
 }
 
 #scores {
@@ -100,22 +100,22 @@ h2{
 }
 
 .dark-to-light{
-	animation: flip 2s ease-in-out;
+	animation: flip 1s ease-in-out;
 	animation-iteration-count: 1;
 }
 
 .light-to-dark{
-	animation: flip 2s ease-in-out;
+	animation: flip 1s ease-in-out;
 	animation-iteration-count: 1;
 }
 
 .light-to-dark.token {
-	animation: light-dark 2s ease-in-out;
+	animation: light-dark 1s ease-in-out;
 	animation-iteration-count: 1;
 }
 
 .dark-to-light.token {
-	animation: darklight 2s ease-in-out;
+	animation: darklight 1s ease-in-out;
 	animation-iteration-count: 1;
 }
 
@@ -156,6 +156,25 @@ h2{
 
 .hover {
 	opacity: .25;
+}
+
+@keyframes flash {
+	0% {
+	 	opacity: 0;
+	}
+	50% {
+	 	opacity: 1;
+	}
+	100% {
+	 	opacity: 0;
+	}
+}
+
+.transitional {
+	height: 15rem;
+	animation: flash 1s ease-in-out;
+	animation-iteration-count: 1;
+
 }
 
 #game_over {
