@@ -399,4 +399,5 @@ window.onload=function(){
   $('#darksum').html(darksum);
   $('#lightsum').html(lightsum);
   intervalTimer(game.last_move_time);
+  $('#quit').append('<a href="index.html"><button class="small" aria-pressed="true">Quit</button></a>');
 }
