@@ -21,6 +21,13 @@ p {
 	text-align: left;
 }
 
+p.about{
+	padding: 1rem 20rem;
+	font-weight: bold;
+	font-size: 1.5rem;
+	text-align: left;
+}
+
 img.header-image {
 	width:30%;
 }
@@ -92,7 +99,7 @@ input::placeholder {
 	text-align: center;
 	color: white;
 	font-family: 'Luckiest Guy';
-	margin-top:2rem;
+	margin-top: 2rem;
 }
 
 .header-wrapper.index{
@@ -127,6 +134,12 @@ input::placeholder {
 	width: 100%;
 	justify-content: center;
 	margin-top: 2rem;
+}
+
+.index-nav {
+	position: absolute;
+	top:0;
+	right: 0;
 }
 
 .two-column {
@@ -242,5 +255,22 @@ input::placeholder {
 	}
 	img.header-image {
 		width:90%;
+	}
+
+	p.about{
+		padding: 1rem 1rem;
+	}
+
+	.index-nav {
+		position: inherit;
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		justify-content: center;
+		margin-top: 1rem;
+	}
+
+	.index-nav button.home {
+		margin: 0 0 1rem;
 	}
 }
