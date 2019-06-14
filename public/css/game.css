@@ -109,7 +109,7 @@ h2{
 	animation-iteration-count: 1;
 }
 
-.light-to-dark.token {
+.light-to-dark.token { 
 	animation: light-dark 1s ease-in-out;
 	animation-iteration-count: 1;
 }
@@ -120,7 +120,7 @@ h2{
 }
 
 @keyframes flip {
-	 0% {
+	 0% 50% {
 	 	opacity: 0;
 	    transform: rotateY(0deg) rotateZ(0deg);
 	 }
