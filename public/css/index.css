@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+@import url("https://use.typekit.net/qjh7lmr.css");
 
 input:focus,
 select:focus,
@@ -30,6 +31,8 @@ p.about{
 
 img.header-image {
 	width:30%;
+	display: flex;
+	align-self: center;
 }
 
 button {

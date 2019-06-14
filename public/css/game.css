@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/qjh7lmr.css");
+
 * { box-sizing: border-box; }
 
 h2{
@@ -156,6 +158,8 @@ h2{
 
 .hover {
 	opacity: .25;
+	animation: pulse 2s ease-in-out;
+	animation-iteration-count: infinite;
 }
 
 @keyframes flash {
@@ -167,6 +171,18 @@ h2{
 	}
 	100% {
 	 	opacity: 0;
+	}
+}
+
+@keyframes pulse {
+	0% {
+	 	transform: scale(.3);
+	}
+	50% {
+	 	transform: scale(1.5);
+	}
+	100% {
+	 	transform: scale(.3);
 	}
 }
 
