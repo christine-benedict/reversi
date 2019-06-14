@@ -71,13 +71,13 @@
 		</g>
 	</g>
 
-	<animate xlink:href="#tokenOutline" attributeName="fill" from="#69FFE6" to="#25B39B" dur="1s" repeatCount="1" fill="freeze"/>
-    <animate xlink:href="#tokenCenter" attributeName="fill" from="#69FFE6" to="#25B39B" dur="1s" repeatCount="1" fill="freeze"/>
+	<animate xlink:href="#tokenOutline" attributeName="fill" from="#69FFE6" to="#25B39B" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#tokenCenter" attributeName="fill" from="#69FFE6" to="#25B39B" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow1" attributeName="fill" from="#5a8279" to="#004a40" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow2" attributeName="fill" from="#5a8279" to="#004a40" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow3" attributeName="fill" from="#5a8279" to="#004a40" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow4" attributeName="fill" from="#5a8279" to="#004a40" dur="2s" repeatCount="1" fill="freeze"/>
-	<animate xlink:href="#icon1" attributeName="opacity" from="1" to="0" dur=".5s" repeatCount="1" fill="freeze"/>
+	<animate xlink:href="#icon1" attributeName="opacity" from="1" to="0" dur="1s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#icon2" attributeName="opacity" from="0" to="1" dur=".5s" repeatCount="1" fill="freeze"/>
 
 </svg>
