@@ -71,8 +71,8 @@
 		</g>
 	</g>
 
-	<animate xlink:href="#tokenOutline" attributeName="fill" from="#25B39B" to="#69FFE6" dur="1s" repeatCount="1" fill="freeze"/>
-    <animate xlink:href="#tokenCenter" attributeName="fill" from="#25B39B" to="#69FFE6" dur="1s" repeatCount="1" fill="freeze"/>
+	<animate xlink:href="#tokenOutline" attributeName="fill" from="#25B39B" to="#69FFE6" dur="2s" repeatCount="1" fill="freeze"/>
+    <animate xlink:href="#tokenCenter" attributeName="fill" from="#25B39B" to="#69FFE6" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow1" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow2" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
     <animate xlink:href="#shadow3" attributeName="fill" from="#004a40" to="#5a8279" dur="2s" repeatCount="1" fill="freeze"/>
